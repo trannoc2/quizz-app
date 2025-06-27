@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Ôn Tập Trắc Nghiệm</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Ôn Tập 9 Bài - Trắc Nghiệm</h1>
+    <div id="quiz"></div>
+  </div>
+  <script src="questions.js"></script>
+  <script>
+    const quizContainer = document.getElementById('quiz');
+    questions.forEach((q, index) => {
+      const div = document.createElement('div');
+      div.className = 'question';
+      div.innerHTML = `
+        <h3>Câu ${index + 1}: ${q.question}</h3>
+        <ul>
+          ${q.options.map((opt, i) => `<li onclick="checkAnswer(this, '${opt}', '${q.answer}')">${opt}</li>`).join('')}
+        </ul>
+      `;
+      quizContainer.appendChild(div);
+    });
+
+    function checkAnswer(element, selected, correct) {
+      const siblings = element.parentElement.querySelectorAll('li');
+      siblings.forEach(li => li.classList.remove('correct', 'wrong'));
+      if (selected === correct) {
+        element.classList.add('correct');
+      } else {
+        element.classList.add('wrong');
+      }
+    }
+  </script>
+</body>
+</html>
